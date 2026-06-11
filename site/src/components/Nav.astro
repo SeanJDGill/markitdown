@@ -1,0 +1,56 @@
+---
+import { nav, site } from '../lib/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header class="border-b border-line bg-paper/90 sticky top-0 z-40 backdrop-blur">
+  <nav class="container flex items-center justify-between h-16" aria-label="Primary">
+    <a href="/" class="text-lg font-extrabold tracking-tight flex items-center gap-2">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent"></span>
+      {site.name}
+    </a>
+
+    <button
+      type="button"
+      id="nav-toggle"
+      class="sm:hidden text-sm font-medium px-2 py-1"
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      Menu
+    </button>
+
+    <ul
+      id="nav-links"
+      class="hidden sm:flex items-center gap-6 text-sm font-medium absolute sm:static top-16 left-0 right-0 bg-paper sm:bg-transparent border-b sm:border-0 border-line flex-col sm:flex-row px-5 sm:px-0 py-4 sm:py-0"
+    >
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'transition-colors hover:text-accent',
+                isActive(item.href) ? 'text-accent' : 'text-ink-soft',
+              ]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => {
+    const open = links?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(open === false));
+  });
+</script>

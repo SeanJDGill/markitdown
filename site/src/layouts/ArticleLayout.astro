@@ -1,0 +1,69 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TagList from '../components/TagList.astro';
+import ReadingTime from '../components/ReadingTime.astro';
+import ContentTypeBadge from '../components/ContentTypeBadge.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import type { CaseStudy } from '../data/types';
+
+interface Props {
+  study: CaseStudy;
+}
+const { study } = Astro.props;
+
+const dateFmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
+---
+
+<BaseLayout
+  title={study.seo?.title ?? study.title}
+  description={study.seo?.description ?? study.excerpt}
+  image={study.seo?.ogImage ?? study.hero.src}
+  type="article"
+  publishDate={study.publishDate}
+  modifiedDate={study.updatedDate}
+>
+  <article>
+    <header class="container-prose pt-12 sm:pt-16">
+      <div class="flex items-center gap-3 text-sm">
+        <ContentTypeBadge type="caseStudy" />
+        <span class="font-medium text-ink-soft">{study.company}</span>
+        {study.rating != null && <span class="ml-auto font-bold text-accent">{study.rating}/10</span>}
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.1] mt-5">
+        {study.title}
+      </h1>
+      <p class="text-xl text-ink-soft mt-5 leading-relaxed">{study.excerpt}</p>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-6 text-sm text-muted">
+        <span>By {study.author}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={study.publishDate.toISOString()}>{dateFmt.format(study.publishDate)}</time>
+        <span aria-hidden="true">·</span>
+        <ReadingTime minutes={study.readingTime} />
+      </div>
+    </header>
+
+    <div class="container mt-10">
+      <img
+        src={study.hero.src}
+        width={study.hero.width}
+        height={study.hero.height}
+        alt={study.hero.alt}
+        class="w-full rounded-2xl border border-line bg-surface aspect-[16/9] object-cover"
+      />
+    </div>
+
+    <div class="container-prose mt-12">
+      <div class="prose prose-editorial max-w-none">
+        <slot />
+      </div>
+
+      <TagList topics={study.topics} class="mt-12" />
+
+      <div class="mt-14">
+        <NewsletterSignup />
+      </div>
+
+      <slot name="footer" />
+    </div>
+  </article>
+</BaseLayout>

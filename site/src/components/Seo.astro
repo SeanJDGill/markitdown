@@ -1,0 +1,47 @@
+---
+import { buildMeta, type MetaInput } from '../lib/seo';
+import { site } from '../lib/site';
+
+type Props = MetaInput;
+
+const meta = buildMeta(Astro.props);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(meta.image, Astro.site);
+---
+
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content={meta.type} />
+<meta property="og:title" content={meta.title} />
+<meta property="og:description" content={meta.description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content={site.name} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={meta.title} />
+<meta name="twitter:description" content={meta.description} />
+<meta name="twitter:image" content={ogImage} />
+
+<link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+
+{
+  meta.type === 'article' && (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: meta.title,
+        description: meta.description,
+        image: ogImage.toString(),
+        datePublished: meta.publishDate?.toISOString(),
+        dateModified: (meta.modifiedDate ?? meta.publishDate)?.toISOString(),
+        author: { '@type': 'Organization', name: site.author },
+        publisher: { '@type': 'Organization', name: site.name },
+      })}
+    />
+  )
+}

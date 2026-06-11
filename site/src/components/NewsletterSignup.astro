@@ -1,0 +1,88 @@
+---
+import { site } from '../lib/site';
+
+interface Props {
+  variant?: 'block' | 'inline';
+  title?: string;
+  description?: string;
+}
+
+const {
+  variant = 'block',
+  title = 'Get the next teardown in your inbox',
+  description = 'One in-depth UX case study, every other week. No spam, unsubscribe anytime.',
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    'newsletter',
+    variant === 'block'
+      ? 'bg-ink text-paper rounded-2xl px-6 py-10 sm:px-10 sm:py-12'
+      : 'border-t border-line pt-8',
+  ]}
+  data-endpoint={site.newsletterEndpoint}
+>
+  <div class="max-w-xl">
+    <h2 class:list={['font-bold tracking-tight', variant === 'block' ? 'text-2xl sm:text-3xl' : 'text-xl']}>
+      {title}
+    </h2>
+    <p class:list={['mt-2', variant === 'block' ? 'text-paper/70' : 'text-ink-soft']}>{description}</p>
+
+    <form class="newsletter-form mt-6 flex flex-col sm:flex-row gap-3" novalidate>
+      <label class="sr-only" for="newsletter-email">Email address</label>
+      <input
+        id="newsletter-email"
+        name="email"
+        type="email"
+        required
+        placeholder="you@example.com"
+        class="flex-1 rounded-lg px-4 py-3 text-ink bg-surface border border-line placeholder:text-muted"
+      />
+      <button
+        type="submit"
+        class="rounded-lg bg-accent px-5 py-3 font-semibold text-white hover:opacity-90 transition-opacity whitespace-nowrap"
+      >
+        Subscribe
+      </button>
+    </form>
+    <p class="newsletter-status mt-3 text-sm" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.newsletter').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('.newsletter-form');
+    const status = root.querySelector<HTMLElement>('.newsletter-status');
+    const endpoint = root.dataset.endpoint;
+    if (!form || !status) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = new FormData(form).get('email');
+      if (!email || !String(email).includes('@')) {
+        status.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      if (!endpoint) {
+        status.textContent = `Thanks! (Demo mode — set PUBLIC_NEWSLETTER_ENDPOINT to go live.)`;
+        form.reset();
+        return;
+      }
+      try {
+        status.textContent = 'Subscribing…';
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        status.textContent = res.ok
+          ? 'You’re in — check your inbox to confirm.'
+          : 'Something went wrong. Please try again.';
+        if (res.ok) form.reset();
+      } catch {
+        status.textContent = 'Network error. Please try again.';
+      }
+    });
+  });
+</script>

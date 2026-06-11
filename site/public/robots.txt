@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://teardowns.example.com/sitemap-index.xml

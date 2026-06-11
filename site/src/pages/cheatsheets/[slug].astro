@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentTypeBadge from '../../components/ContentTypeBadge.astro';
+import TagList from '../../components/TagList.astro';
+import { getAllCheatsheets } from '../../data/content';
+
+export const getStaticPaths = (async () => {
+  const cheatsheets = await getAllCheatsheets();
+  return cheatsheets.map((c) => ({ params: { slug: c.slug }, props: { cheatsheet: c } }));
+}) satisfies GetStaticPaths;
+
+const { cheatsheet } = Astro.props;
+const { Content } = await cheatsheet.render();
+---
+
+<BaseLayout title={cheatsheet.title} description={cheatsheet.summary}>
+  <article class="container-prose pt-12 sm:pt-16">
+    <ContentTypeBadge type="cheatsheet" />
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight mt-5">{cheatsheet.title}</h1>
+    <p class="text-xl text-ink-soft mt-4 leading-relaxed">{cheatsheet.summary}</p>
+    <div class="prose prose-editorial max-w-none mt-10">
+      <Content />
+    </div>
+    <TagList topics={cheatsheet.topics} class="mt-10" />
+  </article>
+</BaseLayout>

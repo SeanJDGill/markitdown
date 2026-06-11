@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UxBiteCard from '../../components/UxBiteCard.astro';
+import { getAllUxBites } from '../../data/content';
+
+const bites = await getAllUxBites();
+---
+
+<BaseLayout title="UX Bites" description="Short, single-insight UX examples worth stealing.">
+  <section class="container pt-12 sm:pt-16 pb-8">
+    <p class="text-accent font-semibold uppercase tracking-widest text-sm">UX Bites</p>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3">One idea at a time</h1>
+    <p class="text-lg text-ink-soft mt-4 max-w-2xl">
+      Bite-sized teardowns — a single, specific UX detail worth noticing.
+    </p>
+  </section>
+  <section class="container pb-16">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {bites.map((bite) => <UxBiteCard bite={bite} />)}
+    </div>
+  </section>
+</BaseLayout>

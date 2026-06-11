@@ -1,0 +1,62 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import UxBiteCard from '../../components/UxBiteCard.astro';
+import { getAllTopics, getContentByTopic } from '../../data/content';
+import { topicLabel } from '../../lib/site';
+
+export const getStaticPaths = (async () => {
+  const topics = await getAllTopics();
+  return Promise.all(
+    topics.map(async (topic) => ({
+      params: { topic },
+      props: { topic, ...(await getContentByTopic(topic)) },
+    })),
+  );
+}) satisfies GetStaticPaths;
+
+const { topic, caseStudies, uxBites } = Astro.props;
+const label = topicLabel(topic);
+---
+
+<BaseLayout
+  title={`${label} · UX teardowns`}
+  description={`Case studies and UX bites about ${label.toLowerCase()}.`}
+>
+  <section class="container pt-12 sm:pt-16 pb-8">
+    <p class="text-accent font-semibold uppercase tracking-widest text-sm">Topic</p>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3">{label}</h1>
+    <p class="text-lg text-ink-soft mt-4 max-w-2xl">
+      {caseStudies.length} case stud{caseStudies.length === 1 ? 'y' : 'ies'} and {uxBites.length} UX
+      bite{uxBites.length === 1 ? '' : 's'} on {label.toLowerCase()}.
+    </p>
+  </section>
+
+  {
+    caseStudies.length > 0 && (
+      <section class="container py-8">
+        <SectionHeading title="Case studies" />
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {caseStudies.map((study) => <CaseStudyCard study={study} />)}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    uxBites.length > 0 && (
+      <section class="container py-8">
+        <SectionHeading title="UX bites" />
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {uxBites.map((bite) => <UxBiteCard bite={bite} />)}
+        </div>
+      </section>
+    )
+  }
+
+  <div class="container py-8">
+    <a href="/library/" class="text-accent font-medium">← Back to the library</a>
+  </div>
+</BaseLayout>

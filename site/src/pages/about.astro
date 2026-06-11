@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title="About" description={`About ${site.name} — why we tear down UX.`}>
+  <article class="container-prose pt-12 sm:pt-16">
+    <p class="text-accent font-semibold uppercase tracking-widest text-sm">About</p>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3">Why we tear things down</h1>
+
+    <div class="prose prose-editorial max-w-none mt-8">
+      <p>
+        {site.name} is an independent publication that studies how the best digital products are
+        actually designed — screen by screen, decision by decision. Inspired by the format pioneered
+        by <a href="https://builtformars.com">Built for Mars</a>, every teardown is hands-on: we sign
+        up, click through, and document the choices most people never notice.
+      </p>
+
+      <h2>How we work</h2>
+      <p>We publish four kinds of content:</p>
+      <ul>
+        <li><strong>Case studies</strong> — deep, long-form teardowns of a single product flow.</li>
+        <li><strong>UX bites</strong> — a single, specific detail worth stealing.</li>
+        <li><strong>Cheatsheets</strong> — practical decision aids and checklists.</li>
+        <li><strong>Glossary</strong> — plain-English definitions of the terms we use.</li>
+      </ul>
+
+      <h2>Our method</h2>
+      <p>
+        We focus on the <em>why</em>, not just the <em>what</em>. A good teardown explains the
+        psychology and trade-offs behind a design — so you can apply the principle, not just copy the
+        pixels.
+      </p>
+
+      <h2>No screenshots yet?</h2>
+      <p>
+        This is a starter site: the imagery is placeholder art. Drop real screenshots into
+        <code>/public/heroes</code> and <code>/public/placeholders</code> (or wire up a CMS) and the
+        layouts will pick them up unchanged.
+      </p>
+    </div>
+
+    <div class="mt-14"><NewsletterSignup /></div>
+  </article>
+</BaseLayout>

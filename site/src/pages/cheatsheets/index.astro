@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllCheatsheets } from '../../data/content';
+import { topicLabel } from '../../lib/site';
+
+const cheatsheets = await getAllCheatsheets();
+---
+
+<BaseLayout title="Cheatsheets" description="Practical decision aids for shipping better UX.">
+  <section class="container pt-12 sm:pt-16 pb-8">
+    <p class="text-accent font-semibold uppercase tracking-widest text-sm">Cheatsheets</p>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3">Decision aids</h1>
+    <p class="text-lg text-ink-soft mt-4 max-w-2xl">Pragmatic checklists and rules of thumb you can apply today.</p>
+  </section>
+  <section class="container pb-16">
+    <ul class="grid gap-6 sm:grid-cols-2">
+      {
+        cheatsheets.map((c) => (
+          <li class="rounded-xl border border-line bg-surface p-6 hover:border-accent transition-colors">
+            <a href={`/cheatsheets/${c.slug}/`} class="block">
+              <h2 class="text-xl font-bold">{c.title}</h2>
+              <p class="text-ink-soft mt-2">{c.summary}</p>
+              <p class="text-xs text-muted mt-4">{c.topics.map(topicLabel).join(' · ')}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
