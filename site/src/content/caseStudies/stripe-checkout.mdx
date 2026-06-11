@@ -1,0 +1,72 @@
+---
+title: "How Stripe makes paying feel safe"
+company: "Stripe"
+excerpt: "Stripe's checkout removes payment anxiety with relentless detail — formatting, validation and reassurance engineered into every field."
+topics: ["checkout", "forms", "accessibility"]
+category: "Payments"
+heroImage: "/heroes/stripe-hero.svg"
+heroImageAlt: "Stylised Stripe checkout screens"
+publishDate: 2026-06-12
+author: "Editorial Team"
+featured: true
+rating: 9
+---
+
+import Screenshot from '../../components/article/Screenshot.astro';
+import Insight from '../../components/article/Insight.astro';
+import PullQuote from '../../components/article/PullQuote.astro';
+
+Handing over card details is the most anxious moment in any purchase. Stripe has spent
+years removing every micro-friction and micro-doubt from that moment — and most of its
+craft is invisible until you look for it.
+
+<Screenshot
+  src="/placeholders/screen-a.svg"
+  alt="Stripe card input field"
+  caption="A single, tidy card field that formats and validates as you type."
+  number={1}
+/>
+
+## Format as the user types
+
+Card numbers gain spaces in the right places, the expiry adds its own slash, and the card
+brand icon appears as soon as it's known. The user never wonders whether they're doing it
+right — the field confirms it in real time.
+
+<Insight number={1} title="Confirm correctness continuously">
+  Live formatting is constant, quiet reassurance. Every space and icon says "yes, this is
+  working" without a single error message.
+</Insight>
+
+## Validate kindly, at the right time
+
+Stripe checks each field as you leave it — never mid-keystroke, never all at once at
+submit. Errors appear next to the field, in plain language, the instant they're knowable.
+
+<PullQuote cite="Stripe">
+  Good validation feels like a helpful colleague looking over your shoulder, not a bouncer
+  at the door.
+</PullQuote>
+
+## Engineer for everyone
+
+The fields are real inputs with proper labels, full keyboard support and announced errors —
+so the same checkout works with a screen reader or a password manager. Accessibility here
+isn't a compliance afterthought; it's what makes the flow robust for everyone.
+
+<Screenshot
+  src="/placeholders/screen-b.svg"
+  alt="Stripe error state"
+  caption="Errors are specific, adjacent, and announced to assistive tech."
+  number={2}
+/>
+
+<Insight number={2} title="Accessible is just robust">
+  Labelled fields, keyboard support and announced errors help screen-reader users — and
+  also autofill, password managers and stressed thumbs on a train.
+</Insight>
+
+## The takeaway
+
+Stripe defuses payment anxiety through accumulated detail: live formatting, kind
+validation and genuinely accessible fields turn the scariest step into the smoothest one.
