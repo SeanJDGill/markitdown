@@ -17,7 +17,7 @@ const dateFmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
 <BaseLayout
   title={study.seo?.title ?? study.title}
   description={study.seo?.description ?? study.excerpt}
-  image={study.seo?.ogImage ?? study.hero.src}
+  image={study.seo?.ogImage ?? `/og/case-studies/${study.slug}.png`}
   type="article"
   publishDate={study.publishDate}
   modifiedDate={study.updatedDate}

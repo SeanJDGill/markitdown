@@ -13,7 +13,11 @@ const SITE = 'https://teardowns.example.com';
 export default defineConfig({
   site: SITE,
 
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    // Keep generated OG images out of the sitemap.
+    sitemap({ filter: (page) => !page.includes('/og/') }),
+  ],
 
   vite: {
     plugins: [tailwindcss()],

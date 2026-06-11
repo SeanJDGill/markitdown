@@ -15,7 +15,13 @@ const { bite } = Astro.props;
 const { Content } = await bite.render();
 ---
 
-<BaseLayout title={bite.title} description={bite.insight} type="article" publishDate={bite.publishDate}>
+<BaseLayout
+  title={bite.title}
+  description={bite.insight}
+  image={`/og/ux-bites/${bite.slug}.png`}
+  type="article"
+  publishDate={bite.publishDate}
+>
   <article class="container-prose pt-12 sm:pt-16">
     <div class="flex items-center gap-3 text-sm">
       <ContentTypeBadge type="uxBite" />
