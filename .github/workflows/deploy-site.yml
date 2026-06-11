@@ -1,0 +1,52 @@
+name: Deploy site to GitHub Pages
+
+# Builds the Astro UX-teardown site in /site and publishes it to GitHub Pages.
+#
+# One-time setup: in the repo, go to Settings → Pages and set
+# "Build and deployment → Source" to "GitHub Actions". The site is served at
+# https://<owner>.github.io/markitdown/ (base path configured in
+# site/astro.config.mjs).
+
+on:
+  push:
+    branches:
+      - main
+      - claude/builtformars-style-site-y0oc71
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy-site.yml'
+  workflow_dispatch:
+
+# Allow this workflow to deploy to Pages via OIDC.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; don't cancel an in-progress run.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install, build and upload the site
+        uses: withastro/action@v3
+        with:
+          path: ./site
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

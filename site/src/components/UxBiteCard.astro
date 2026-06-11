@@ -1,11 +1,13 @@
 ---
 import type { UxBite } from '../data/types';
 import ContentTypeBadge from './ContentTypeBadge.astro';
+import { withBase } from '../lib/url';
 
 interface Props {
   bite: UxBite;
 }
 const { bite } = Astro.props;
+const href = withBase(`/ux-bites/${bite.slug}/`);
 ---
 
 <article class="flex flex-col rounded-xl bg-surface border border-line p-5 hover:border-accent transition-colors h-full">
@@ -14,7 +16,7 @@ const { bite } = Astro.props;
     {bite.company && <span class="font-medium text-ink-soft">{bite.company}</span>}
   </div>
   <h3 class="font-bold tracking-tight text-lg leading-snug mt-3">
-    <a href={`/ux-bites/${bite.slug}/`} class="hover:text-accent transition-colors">{bite.title}</a>
+    <a href={href} class="hover:text-accent transition-colors">{bite.title}</a>
   </h3>
   <p class="text-ink-soft text-sm leading-relaxed mt-2">{bite.insight}</p>
 </article>

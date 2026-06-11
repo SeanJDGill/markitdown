@@ -5,6 +5,7 @@ import ContentTypeBadge from '../../components/ContentTypeBadge.astro';
 import TagList from '../../components/TagList.astro';
 import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import { getAllUxBites } from '../../data/content';
+import { withBase } from '../../lib/url';
 
 export const getStaticPaths = (async () => {
   const bites = await getAllUxBites();
@@ -32,7 +33,7 @@ const { Content } = await bite.render();
     {
       bite.image && (
         <img
-          src={bite.image.src}
+          src={withBase(bite.image.src)}
           alt={bite.image.alt}
           class="w-full rounded-2xl border border-line bg-surface aspect-[3/2] object-cover mt-8"
         />

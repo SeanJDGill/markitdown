@@ -1,5 +1,6 @@
 ---
 import { topicLabel } from '../lib/site';
+import { withBase } from '../lib/url';
 
 interface Props {
   topics: string[];
@@ -13,7 +14,7 @@ const { topics, class: cls } = Astro.props;
     topics.map((t) => (
       <li>
         <a
-          href={`/topics/${t}/`}
+          href={withBase(`/topics/${t}/`)}
           class="inline-block text-xs font-medium px-2.5 py-1 rounded-full border border-line text-ink-soft hover:border-accent hover:text-accent transition-colors"
         >
           {topicLabel(t)}

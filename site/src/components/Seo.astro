@@ -1,12 +1,15 @@
 ---
 import { buildMeta, type MetaInput } from '../lib/seo';
 import { site } from '../lib/site';
+import { withBase } from '../lib/url';
 
 type Props = MetaInput;
 
 const meta = buildMeta(Astro.props);
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(meta.image, Astro.site);
+// Astro.url.pathname already includes the base; image paths do not, so add it.
+const ogImage = new URL(withBase(meta.image), Astro.site);
+const rssHref = withBase('/rss.xml');
 ---
 
 <title>{meta.title}</title>
@@ -25,7 +28,7 @@ const ogImage = new URL(meta.image, Astro.site);
 <meta name="twitter:description" content={meta.description} />
 <meta name="twitter:image" content={ogImage} />
 
-<link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+<link rel="alternate" type="application/rss+xml" title={site.name} href={rssHref} />
 
 {
   meta.type === 'article' && (

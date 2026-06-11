@@ -5,13 +5,16 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// Update this to your production domain. Required for absolute URLs in the
-// sitemap, RSS feed, canonical tags and Open Graph metadata.
-const SITE = 'https://teardowns.example.com';
+// Production domain + base path. Configured for a GitHub Pages project site at
+// https://seanjdgill.github.io/markitdown/. For a custom domain, set
+// SITE to that origin and BASE to '/'.
+const SITE = 'https://seanjdgill.github.io';
+const BASE = '/markitdown';
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE,
+  base: BASE,
 
   integrations: [
     mdx(),

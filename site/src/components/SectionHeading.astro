@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   title: string;
   eyebrow?: string;
@@ -15,7 +17,7 @@ const { title, eyebrow, href, hrefLabel = 'View all' } = Astro.props;
   </div>
   {
     href && (
-      <a href={href} class="text-sm font-medium text-ink-soft hover:text-accent whitespace-nowrap">
+      <a href={withBase(href)} class="text-sm font-medium text-ink-soft hover:text-accent whitespace-nowrap">
         {hrefLabel} →
       </a>
     )

@@ -76,3 +76,21 @@ Implement `cms.ts` and set `CONTENT_SOURCE=cms` — pages and components stay un
 - `src/components/Seo.astro` — meta, Open Graph, Twitter cards, JSON-LD on articles.
 - `@astrojs/sitemap` — auto `sitemap-index.xml` (referenced from `public/robots.txt`).
 - `src/pages/rss.xml.ts` — RSS feed of case studies.
+
+## Deployment (GitHub Pages)
+
+`.github/workflows/deploy-site.yml` builds this site and publishes it to GitHub Pages
+on every push to `main` (and the feature branch). **One-time setup:** in the repo,
+go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+
+The site is served from a subpath, so `astro.config.mjs` sets:
+
+```js
+const SITE = 'https://seanjdgill.github.io';
+const BASE = '/markitdown';   // → https://seanjdgill.github.io/markitdown/
+```
+
+All internal links and image paths go through `withBase()` (`src/lib/url.ts`), so they
+respect the base automatically. **For a custom domain**, set `SITE` to that origin and
+`BASE` to `'/'` — no other changes needed. Note that running `npm run dev` locally also
+serves under the base, i.e. `http://localhost:4321/markitdown/`.

@@ -2,6 +2,9 @@
 import type { CaseStudy } from '../data/types';
 import ContentTypeBadge from './ContentTypeBadge.astro';
 import { topicLabel } from '../lib/site';
+import { withBase } from '../lib/url';
+
+const href = withBase(`/case-studies/${Astro.props.study.slug}/`);
 
 interface Props {
   study: CaseStudy;
@@ -21,9 +24,9 @@ const { study, feature = false } = Astro.props;
   data-company={study.company}
   data-topics={study.topics.join(',')}
 >
-  <a href={`/case-studies/${study.slug}/`} class:list={['block overflow-hidden', feature ? 'sm:w-1/2' : '']}>
+  <a href={href} class:list={['block overflow-hidden', feature ? 'sm:w-1/2' : '']}>
     <img
-      src={study.hero.src}
+      src={withBase(study.hero.src)}
       width={study.hero.width}
       height={study.hero.height}
       alt={study.hero.alt}
@@ -38,7 +41,7 @@ const { study, feature = false } = Astro.props;
       {study.rating != null && <span class="ml-auto font-bold text-accent">{study.rating}/10</span>}
     </div>
     <h3 class:list={['font-bold tracking-tight leading-snug', feature ? 'text-2xl' : 'text-lg']}>
-      <a href={`/case-studies/${study.slug}/`} class="hover:text-accent transition-colors">
+      <a href={href} class="hover:text-accent transition-colors">
         {study.title}
       </a>
     </h3>

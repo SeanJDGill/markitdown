@@ -6,6 +6,7 @@ import CaseStudyCard from '../../components/CaseStudyCard.astro';
 import UxBiteCard from '../../components/UxBiteCard.astro';
 import { getAllTopics, getContentByTopic } from '../../data/content';
 import { topicLabel } from '../../lib/site';
+import { withBase } from '../../lib/url';
 
 export const getStaticPaths = (async () => {
   const topics = await getAllTopics();
@@ -57,6 +58,6 @@ const label = topicLabel(topic);
   }
 
   <div class="container py-8">
-    <a href="/library/" class="text-accent font-medium">← Back to the library</a>
+    <a href={withBase('/library/')} class="text-accent font-medium">← Back to the library</a>
   </div>
 </BaseLayout>

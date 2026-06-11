@@ -5,6 +5,7 @@ import CaseStudyCard from '../components/CaseStudyCard.astro';
 import UxBiteCard from '../components/UxBiteCard.astro';
 import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { site } from '../lib/site';
+import { withBase } from '../lib/url';
 import {
   getAllCaseStudies,
   getFeaturedCaseStudies,
@@ -30,10 +31,10 @@ const cheatsheets = (await getAllCheatsheets()).slice(0, 2);
       {site.description}
     </p>
     <div class="flex flex-wrap gap-3 justify-center mt-8">
-      <a href="/library/" class="rounded-lg bg-accent px-6 py-3 font-semibold text-white hover:opacity-90 transition-opacity">
+      <a href={withBase('/library/')} class="rounded-lg bg-accent px-6 py-3 font-semibold text-white hover:opacity-90 transition-opacity">
         Browse the library
       </a>
-      <a href="/about/" class="rounded-lg border border-line px-6 py-3 font-semibold hover:border-accent transition-colors">
+      <a href={withBase('/about/')} class="rounded-lg border border-line px-6 py-3 font-semibold hover:border-accent transition-colors">
         What is this?
       </a>
     </div>
@@ -83,7 +84,7 @@ const cheatsheets = (await getAllCheatsheets()).slice(0, 2);
         {
           cheatsheets.map((c) => (
             <li class="rounded-xl border border-line bg-surface p-5 hover:border-accent transition-colors">
-              <a href={`/cheatsheets/${c.slug}/`} class="block">
+              <a href={withBase(`/cheatsheets/${c.slug}/`)} class="block">
                 <span class="font-bold">{c.title}</span>
                 <span class="block text-ink-soft text-sm mt-1">{c.summary}</span>
               </a>

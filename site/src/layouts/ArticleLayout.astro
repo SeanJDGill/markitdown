@@ -5,6 +5,7 @@ import ReadingTime from '../components/ReadingTime.astro';
 import ContentTypeBadge from '../components/ContentTypeBadge.astro';
 import NewsletterSignup from '../components/NewsletterSignup.astro';
 import type { CaseStudy } from '../data/types';
+import { withBase } from '../lib/url';
 
 interface Props {
   study: CaseStudy;
@@ -44,7 +45,7 @@ const dateFmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
 
     <div class="container mt-10">
       <img
-        src={study.hero.src}
+        src={withBase(study.hero.src)}
         width={study.hero.width}
         height={study.hero.height}
         alt={study.hero.alt}

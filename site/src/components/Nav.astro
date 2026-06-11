@@ -1,13 +1,17 @@
 ---
 import { nav, site } from '../lib/site';
+import { withBase } from '../lib/url';
 
 const path = Astro.url.pathname;
-const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+const isActive = (href: string) => {
+  const target = withBase(href);
+  return path === target || (href !== '/' && path.startsWith(target));
+};
 ---
 
 <header class="border-b border-line bg-paper/90 sticky top-0 z-40 backdrop-blur">
   <nav class="container flex items-center justify-between h-16" aria-label="Primary">
-    <a href="/" class="text-lg font-extrabold tracking-tight flex items-center gap-2">
+    <a href={withBase('/')} class="text-lg font-extrabold tracking-tight flex items-center gap-2">
       <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent"></span>
       {site.name}
     </a>
@@ -30,7 +34,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
         nav.map((item) => (
           <li>
             <a
-              href={item.href}
+              href={withBase(item.href)}
               class:list={[
                 'transition-colors hover:text-accent',
                 isActive(item.href) ? 'text-accent' : 'text-ink-soft',
