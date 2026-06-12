@@ -3,6 +3,10 @@ dist/
 # generated types
 .astro/
 
+# The repo-root (Python) .gitignore ignores any `lib/` directory; that would
+# swallow our application source in src/lib/. Re-include it explicitly.
+!src/lib/
+
 # dependencies
 node_modules/
 
