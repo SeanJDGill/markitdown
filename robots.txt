@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seanjdgill.github.io/markitdown/sitemap-index.xml
