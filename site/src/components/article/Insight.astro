@@ -1,0 +1,22 @@
+---
+/** A numbered lesson/insight callout — the recurring "takeaway" pattern. */
+interface Props {
+  number?: number;
+  title?: string;
+}
+const { number, title } = Astro.props;
+---
+
+<aside class="my-10 flex gap-4 rounded-xl border-l-4 border-accent bg-accent-soft/40 p-6 not-prose">
+  {
+    number != null && (
+      <div class="flex-none w-10 h-10 rounded-full bg-accent text-white font-bold grid place-items-center">
+        {number}
+      </div>
+    )
+  }
+  <div>
+    {title && <p class="font-bold text-ink text-lg leading-snug">{title}</p>}
+    <div class="text-ink-soft leading-relaxed mt-1"><slot /></div>
+  </div>
+</aside>

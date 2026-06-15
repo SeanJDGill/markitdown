@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/url';
+---
+
+<BaseLayout title="Page not found">
+  <section class="container py-24 text-center">
+    <p class="text-accent font-bold text-6xl">404</p>
+    <h1 class="text-3xl font-extrabold tracking-tight mt-4">This page took a wrong turn</h1>
+    <p class="text-ink-soft mt-3">The teardown you're after might have moved.</p>
+    <a href={withBase('/library/')} class="inline-block mt-8 rounded-lg bg-accent px-6 py-3 font-semibold text-white hover:opacity-90">
+      Browse the library
+    </a>
+  </section>
+</BaseLayout>

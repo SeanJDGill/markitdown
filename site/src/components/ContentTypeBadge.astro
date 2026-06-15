@@ -1,0 +1,19 @@
+---
+interface Props {
+  type: 'caseStudy' | 'uxBite' | 'cheatsheet' | 'tooltip';
+}
+const { type } = Astro.props;
+
+const map = {
+  caseStudy: { label: 'Case Study', cls: 'bg-accent-soft text-accent' },
+  uxBite: { label: 'UX Bite', cls: 'bg-ink text-paper' },
+  cheatsheet: { label: 'Cheatsheet', cls: 'bg-surface text-ink border border-line' },
+  tooltip: { label: 'Term', cls: 'bg-surface text-ink-soft border border-line' },
+} as const;
+
+const { label, cls } = map[type];
+---
+
+<span class:list={['inline-block text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full', cls]}>
+  {label}
+</span>

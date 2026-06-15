@@ -1,0 +1,31 @@
+---
+import type { CaseStudy } from '../data/types';
+import { withBase } from '../lib/url';
+
+interface Props {
+  prev: CaseStudy | null;
+  next: CaseStudy | null;
+}
+const { prev, next } = Astro.props;
+---
+
+<nav class="grid sm:grid-cols-2 gap-4 mt-16 pt-8 border-t border-line" aria-label="More case studies">
+  {
+    prev ? (
+      <a href={withBase(`/case-studies/${prev.slug}/`)} class="group rounded-xl border border-line p-5 hover:border-accent transition-colors">
+        <span class="text-xs uppercase tracking-wide text-muted">← Newer</span>
+        <span class="block font-semibold mt-1 group-hover:text-accent">{prev.title}</span>
+      </a>
+    ) : (
+      <span />
+    )
+  }
+  {
+    next && (
+      <a href={withBase(`/case-studies/${next.slug}/`)} class="group rounded-xl border border-line p-5 hover:border-accent transition-colors sm:text-right">
+        <span class="text-xs uppercase tracking-wide text-muted">Older →</span>
+        <span class="block font-semibold mt-1 group-hover:text-accent">{next.title}</span>
+      </a>
+    )
+  }
+</nav>

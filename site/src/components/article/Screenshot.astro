@@ -1,0 +1,31 @@
+---
+/**
+ * A large annotated figure for use inside case-study MDX bodies.
+ * `src` may be a co-located import or a remote/placeholder URL.
+ */
+import { withBase } from '../../lib/url';
+
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  number?: number;
+  width?: number;
+  height?: number;
+}
+const { src, alt, caption, number, width, height } = Astro.props;
+---
+
+<figure class="my-10 -mx-2 sm:mx-0">
+  <div class="rounded-xl overflow-hidden border border-line bg-surface">
+    <img src={withBase(src)} alt={alt} width={width} height={height} loading="lazy" class="w-full block" />
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-3 text-sm text-muted flex gap-2">
+        {number != null && <span class="font-semibold text-accent">Fig. {number}</span>}
+        <span>{caption}</span>
+      </figcaption>
+    )
+  }
+</figure>

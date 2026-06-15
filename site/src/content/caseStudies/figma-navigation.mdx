@@ -1,0 +1,70 @@
+---
+title: "Figma's navigation scales from doodle to design system"
+company: "Figma"
+excerpt: "The same canvas serves a first-time sketcher and a team running a 10,000-component library. A teardown of how Figma's navigation stretches without breaking."
+topics: ["navigation", "accessibility", "search"]
+category: "Design"
+heroImage: "/heroes/figma-hero.svg"
+heroImageAlt: "Stylised Figma navigation screens"
+publishDate: 2026-06-11
+author: "Editorial Team"
+rating: 8.5
+---
+
+import Screenshot from '../../components/article/Screenshot.astro';
+import Insight from '../../components/article/Insight.astro';
+import PullQuote from '../../components/article/PullQuote.astro';
+
+Most tools pick a lane: simple for beginners or powerful for experts. Figma refuses to
+choose. Its navigation has to work for someone drawing their first rectangle *and* a team
+managing thousands of components — in the same UI.
+
+<Screenshot
+  src="/placeholders/screen-a.svg"
+  alt="Figma canvas with minimal chrome"
+  caption="The canvas is mostly empty space — chrome stays out of the way until summoned."
+  number={1}
+/>
+
+## Keep the surface calm
+
+By default the canvas is quiet: a thin toolbar, collapsible panels, and everything else
+tucked away. Beginners aren't overwhelmed because most power is hidden until requested.
+
+<Insight number={1} title="Quiet by default, deep on demand">
+  A calm default surface lets novices breathe while experts reach for depth via shortcuts
+  and menus.
+</Insight>
+
+## Make search the universal shortcut
+
+Figma's quick actions and component search mean you never have to *remember* where
+anything lives — you just type what you want. As the project grows, search scales where
+menus can't.
+
+<Screenshot
+  src="/placeholders/screen-b.svg"
+  alt="Figma quick-action search"
+  caption="Type-to-find collapses a deep menu tree into a single input."
+  number={2}
+/>
+
+<PullQuote cite="Figma">
+  When a product gets big enough, search stops being a feature and becomes the navigation.
+</PullQuote>
+
+## Respect the keyboard
+
+Every meaningful action has a shortcut, and the focus order is deliberate. That serves
+power users and accessibility at once — keyboard-first design is rarely just for experts.
+
+<Insight number={2} title="Keyboard-first is accessibility-first">
+  Designing for the keyboard speeds up power users and opens the door to people who can't
+  use a mouse. The same work pays twice.
+</Insight>
+
+## The takeaway
+
+Figma scales by staying calm at rest and deep on demand: hidden power, search as
+navigation, and a thorough keyboard model let one interface serve doodlers and design
+systems alike.

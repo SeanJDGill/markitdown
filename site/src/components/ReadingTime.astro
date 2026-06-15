@@ -1,0 +1,7 @@
+---
+interface Props {
+  minutes?: number;
+}
+const { minutes } = Astro.props;
+---
+{minutes ? <span class="text-muted">≈ {minutes} min read</span> : null}

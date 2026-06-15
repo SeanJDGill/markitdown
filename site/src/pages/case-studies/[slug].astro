@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import PrevNext from '../../components/PrevNext.astro';
+import { getAllCaseStudies, getAdjacent } from '../../data/content';
+
+export const getStaticPaths = (async () => {
+  const studies = await getAllCaseStudies();
+  return studies.map((study) => ({ params: { slug: study.slug }, props: { study } }));
+}) satisfies GetStaticPaths;
+
+const { study } = Astro.props;
+const { Content } = await study.render();
+const { prev, next } = await getAdjacent(study.slug);
+---
+
+<ArticleLayout study={study}>
+  <Content />
+  <Fragment slot="footer">
+    <PrevNext prev={prev} next={next} />
+  </Fragment>
+</ArticleLayout>

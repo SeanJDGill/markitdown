@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import UxBiteCard from '../components/UxBiteCard.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { site } from '../lib/site';
+import { withBase } from '../lib/url';
+import {
+  getAllCaseStudies,
+  getFeaturedCaseStudies,
+  getAllUxBites,
+  getAllCheatsheets,
+} from '../data/content';
+
+const featured = await getFeaturedCaseStudies(2);
+const featuredSlugs = new Set(featured.map((c) => c.slug));
+const recent = (await getAllCaseStudies()).filter((c) => !featuredSlugs.has(c.slug)).slice(0, 6);
+const bites = (await getAllUxBites()).slice(0, 3);
+const cheatsheets = (await getAllCheatsheets()).slice(0, 2);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="container pt-16 sm:pt-24 pb-12 text-center">
+    <p class="text-accent font-semibold uppercase tracking-widest text-sm">UX teardowns</p>
+    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05] mt-4 max-w-4xl mx-auto">
+      We reverse-engineer the world's best product experiences.
+    </h1>
+    <p class="text-xl text-ink-soft mt-6 max-w-2xl mx-auto leading-relaxed">
+      {site.description}
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center mt-8">
+      <a href={withBase('/library/')} class="rounded-lg bg-accent px-6 py-3 font-semibold text-white hover:opacity-90 transition-opacity">
+        Browse the library
+      </a>
+      <a href={withBase('/about/')} class="rounded-lg border border-line px-6 py-3 font-semibold hover:border-accent transition-colors">
+        What is this?
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  {
+    featured.length > 0 && (
+      <section class="container py-12">
+        <SectionHeading eyebrow="Featured" title="Start here" href="/library/" />
+        <div class="grid gap-6">
+          {featured.map((study) => <CaseStudyCard study={study} feature />)}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Recent teardowns -->
+  {
+    recent.length > 0 && (
+      <section class="container py-12">
+        <SectionHeading eyebrow="Latest" title="Recent teardowns" href="/library/" />
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {recent.map((study) => <CaseStudyCard study={study} />)}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- UX Bites -->
+  {
+    bites.length > 0 && (
+      <section class="container py-12">
+        <SectionHeading eyebrow="Quick hits" title="UX Bites" href="/ux-bites/" />
+        <div class="grid gap-6 sm:grid-cols-3">
+          {bites.map((bite) => <UxBiteCard bite={bite} />)}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Cheatsheets + newsletter -->
+  <section class="container py-12 grid gap-6 lg:grid-cols-2 items-start">
+    <div>
+      <SectionHeading eyebrow="Reference" title="Cheatsheets" href="/cheatsheets/" />
+      <ul class="space-y-3">
+        {
+          cheatsheets.map((c) => (
+            <li class="rounded-xl border border-line bg-surface p-5 hover:border-accent transition-colors">
+              <a href={withBase(`/cheatsheets/${c.slug}/`)} class="block">
+                <span class="font-bold">{c.title}</span>
+                <span class="block text-ink-soft text-sm mt-1">{c.summary}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <NewsletterSignup />
+  </section>
+</BaseLayout>

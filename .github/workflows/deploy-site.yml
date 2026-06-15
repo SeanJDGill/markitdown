@@ -1,0 +1,58 @@
+name: Deploy site to GitHub Pages
+
+# Builds the Astro UX-teardown site in /site and publishes the built output to
+# the `gh-pages` branch.
+#
+# One-time setup: in the repo, go to Settings → Pages → "Build and deployment"
+# and set Source to "Deploy from a branch", Branch: `gh-pages`, Folder: `/ (root)`.
+# (The gh-pages branch is created automatically the first time this runs.)
+# The site is served at https://<owner>.github.io/markitdown/ (base path set in
+# site/astro.config.mjs).
+
+on:
+  push:
+    branches:
+      - main
+      - claude/builtformars-style-site-y0oc71
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy-site.yml'
+  workflow_dispatch:
+
+# Needed so the action can push the built site to the gh-pages branch.
+permissions:
+  contents: write
+
+# Allow one concurrent deployment; don't cancel an in-progress run.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install and build
+        working-directory: ./site
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site/dist
+          publish_branch: gh-pages
+          # peaceiris adds a .nojekyll file by default so Astro's _astro/
+          # asset directory is served (Jekyll would otherwise strip it).

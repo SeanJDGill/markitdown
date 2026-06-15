@@ -141,7 +141,9 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-/site
+# NOTE: /site here is the Astro UX-teardown web app (committed), not mkdocs output.
+# Its own build artifacts (dist/, node_modules/, .astro/) are ignored via site/.gitignore.
+!/site/
 
 # mypy
 .mypy_cache/

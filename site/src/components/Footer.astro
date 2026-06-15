@@ -1,0 +1,25 @@
+---
+import { nav, site } from '../lib/site';
+import { withBase } from '../lib/url';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line mt-24">
+  <div class="container py-12 grid gap-8 sm:grid-cols-2">
+    <div>
+      <a href={withBase('/')} class="text-lg font-extrabold tracking-tight flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-accent"></span>
+        {site.name}
+      </a>
+      <p class="mt-3 text-ink-soft max-w-sm">{site.tagline}</p>
+    </div>
+    <nav class="flex flex-wrap gap-x-8 gap-y-2 sm:justify-end text-sm" aria-label="Footer">
+      {nav.map((i) => <a href={withBase(i.href)} class="text-ink-soft hover:text-accent">{i.label}</a>)}
+      <a href={withBase(site.social.rss)} class="text-ink-soft hover:text-accent">RSS</a>
+    </nav>
+  </div>
+  <div class="container py-6 border-t border-line text-sm text-muted flex flex-wrap justify-between gap-2">
+    <span>© {year} {site.name}. A demo in the style of Built for Mars.</span>
+    <a href={`mailto:${site.email}`} class="hover:text-accent">{site.email}</a>
+  </div>
+</footer>

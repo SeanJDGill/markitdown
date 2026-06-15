@@ -1,0 +1,73 @@
+---
+title: "Why GOV.UK is the gold standard for accessible forms"
+company: "GOV.UK"
+excerpt: "No brand flourish, no dark patterns — just forms that anyone, on any device, with any ability, can complete. A teardown of designing for everyone."
+topics: ["accessibility", "forms", "navigation"]
+category: "Public sector"
+heroImage: "/heroes/govuk-hero.svg"
+heroImageAlt: "Stylised GOV.UK form screens"
+publishDate: 2026-06-12
+author: "Editorial Team"
+rating: 9
+---
+
+import Screenshot from '../../components/article/Screenshot.astro';
+import Insight from '../../components/article/Insight.astro';
+import PullQuote from '../../components/article/PullQuote.astro';
+
+GOV.UK serves everyone in the country — including people on old phones, slow connections,
+and assistive technology, often dealing with stressful, high-stakes tasks. Its design
+system is a masterclass in what's left when you strip away everything that isn't service.
+
+<Screenshot
+  src="/placeholders/screen-a.svg"
+  alt="GOV.UK one-question-per-page form"
+  caption="One question per page — the single most underused form pattern."
+  number={1}
+/>
+
+## One thing per page
+
+GOV.UK's signature pattern is asking just one question per screen. It looks slow; it's
+faster. Each page is trivial to understand, easy to validate, and painless to resume after
+an interruption.
+
+<Insight number={1} title="One question per page beats one long form">
+  Splitting a form into single questions reduces cognitive load, simplifies error handling,
+  and makes the whole flow resilient to interruptions.
+</Insight>
+
+## Plain language, generous targets
+
+Labels are written at a reading age the whole population can follow. Touch targets are
+large, contrast is high, and the layout reflows cleanly to any screen. None of this is
+decoration — it's the difference between a service working and not.
+
+<PullQuote cite="GOV.UK design principles">
+  This is for everyone. If it doesn't work for the person in the hardest situation, it
+  doesn't work.
+</PullQuote>
+
+## Errors that help, not scold
+
+When something's wrong, GOV.UK lists every error at the top with anchor links, repeats the
+message beside each field, and never clears the user's answers. The system assumes mistakes
+are the design's fault, not the user's.
+
+<Screenshot
+  src="/placeholders/screen-b.svg"
+  alt="GOV.UK error summary"
+  caption="An error summary with jump links — the accessible way to handle failures."
+  number={2}
+/>
+
+<Insight number={2} title="Treat errors as a design failure">
+  Summarise errors, link to each field, keep the user's input, and explain the fix. Blame
+  the form, never the person.
+</Insight>
+
+## The takeaway
+
+GOV.UK proves accessibility and simplicity aren't constraints on good design — they *are*
+good design. One question per page, plain words and humane errors make a service that
+genuinely works for everyone.

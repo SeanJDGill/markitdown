@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LibraryGrid from '../../components/library/LibraryGrid.astro';
+import { getAllCaseStudies, getAllTopics, getAllCompanies } from '../../data/content';
+
+const studies = await getAllCaseStudies();
+const topics = await getAllTopics();
+const companies = await getAllCompanies();
+---
+
+<BaseLayout
+  title="The Library"
+  description="Every UX teardown in one place. Filter by topic or company."
+>
+  <section class="container pt-12 sm:pt-16 pb-8">
+    <p class="text-accent font-semibold uppercase tracking-widest text-sm">The Library</p>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3">Every teardown</h1>
+    <p class="text-lg text-ink-soft mt-4 max-w-2xl">
+      Search and filter {studies.length} in-depth case studies by topic or company.
+    </p>
+  </section>
+
+  <section class="container pb-16">
+    <LibraryGrid studies={studies} topics={topics} companies={companies} />
+  </section>
+</BaseLayout>
