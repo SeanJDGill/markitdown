@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S3 Connected Health — Pharma Growth, Preference &amp; Adherence</title>
+<meta name="description" content="S3 Connected Health helps pharma grow the treated market, win Rx preference, and improve adherence and care through proven connected-health frameworks.">
+<style>
+  :root {
+    --navy: #0b2545;
+    --navy-2: #13315c;
+    --teal: #0e9594;
+    --teal-bright: #17c3b2;
+    --ink: #1f2a3d;
+    --muted: #5a6b85;
+    --paper: #ffffff;
+    --mist: #f2f6fa;
+    --line: #dde6ef;
+    --gold: #f4a259;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(11, 37, 69, 0.08);
+    --shadow-lg: 0 18px 50px rgba(11, 37, 69, 0.16);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--teal-bright), var(--navy));
+    display: grid; place-items: center;
+    color: #fff; font-weight: 800; font-size: 15px; letter-spacing: -0.5px;
+  }
+  .logo-text { font-weight: 700; font-size: 17px; color: var(--navy); letter-spacing: -0.2px; }
+  .logo-text span { color: var(--teal); }
+  nav.links { display: flex; gap: 28px; align-items: center; }
+  nav.links a {
+    text-decoration: none; color: var(--muted); font-size: 15px; font-weight: 500;
+    transition: color .2s;
+  }
+  nav.links a:hover { color: var(--navy); }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 11px 22px; border-radius: 999px; transition: all .2s; cursor: pointer;
+  }
+  .btn-primary { background: var(--teal); color: #fff; }
+  .btn-primary:hover { background: var(--navy); }
+  .btn-ghost { color: var(--navy); border: 1.5px solid var(--line); background: #fff; }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+  .btn-light { background: #fff; color: var(--navy); }
+  .btn-light:hover { background: var(--teal-bright); color: #fff; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background:
+      radial-gradient(ellipse 80% 60% at 85% 10%, rgba(23,195,178,0.18), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 10% 90%, rgba(23,195,178,0.10), transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff;
+    padding: 96px 0 110px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 1.6px;
+    text-transform: uppercase; color: var(--teal-bright);
+    border: 1px solid rgba(23,195,178,0.4); border-radius: 999px;
+    padding: 6px 16px; margin-bottom: 26px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5vw, 54px); line-height: 1.12; font-weight: 800;
+    letter-spacing: -1px; max-width: 780px; margin-bottom: 22px;
+  }
+  .hero h1 em { font-style: normal; color: var(--teal-bright); }
+  .hero p.lede {
+    font-size: 19px; color: rgba(255,255,255,0.85); max-width: 640px; margin-bottom: 38px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-pillars {
+    margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .pillar {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius); padding: 20px 22px;
+  }
+  .pillar .num { font-size: 13px; font-weight: 700; color: var(--teal-bright); letter-spacing: 1px; }
+  .pillar h3 { font-size: 17px; margin: 6px 0 4px; color: #fff; }
+  .pillar p { font-size: 14px; color: rgba(255,255,255,0.72); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; }
+  .section-head { max-width: 720px; margin-bottom: 54px; }
+  .kicker {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px;
+  }
+  h2 { font-size: clamp(28px, 3.6vw, 38px); line-height: 1.15; letter-spacing: -0.6px; color: var(--navy); margin-bottom: 14px; }
+  .section-head p { font-size: 17px; color: var(--muted); }
+
+  /* ---------- Offering cards ---------- */
+  .offerings { background: var(--mist); }
+  .offer-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 44px;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 44px;
+    margin-bottom: 28px;
+  }
+  .offer-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--teal); background: rgba(14,149,148,0.09);
+    border-radius: 999px; padding: 6px 14px; margin-bottom: 18px;
+  }
+  .offer-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal-bright); }
+  .offer-card h3 { font-size: 27px; color: var(--navy); letter-spacing: -0.4px; margin-bottom: 12px; }
+  .offer-card .promise { font-size: 16.5px; color: var(--ink); font-weight: 500; margin-bottom: 10px; }
+  .offer-card .belief { font-size: 15px; color: var(--muted); font-style: italic; margin-bottom: 22px; }
+  .scenarios { list-style: none; display: grid; gap: 14px; }
+  .scenarios li {
+    display: grid; grid-template-columns: 20px 1fr; gap: 12px;
+    font-size: 15px; color: var(--ink);
+  }
+  .scenarios li strong { color: var(--navy); }
+  .scenarios .tick {
+    width: 20px; height: 20px; margin-top: 2px; border-radius: 6px;
+    background: rgba(23,195,178,0.15); color: var(--teal);
+    display: grid; place-items: center; font-size: 12px; font-weight: 800;
+  }
+  .offer-aside {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    border-radius: var(--radius); padding: 34px 30px; color: #fff;
+    display: flex; flex-direction: column; justify-content: center; gap: 22px;
+  }
+  .offer-aside .quote-mark { font-size: 48px; line-height: 0.5; color: var(--teal-bright); font-family: Georgia, serif; }
+  .offer-aside blockquote { font-size: 18px; line-height: 1.5; font-weight: 500; }
+  .offer-aside .who { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.5px; }
+  .framework-chip {
+    align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--navy);
+    background: var(--teal-bright); border-radius: 999px; padding: 7px 15px;
+  }
+
+  /* ---------- Services ---------- */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px;
+    transition: box-shadow .25s, transform .25s; background: #fff;
+  }
+  .service:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .service .icon {
+    width: 46px; height: 46px; border-radius: 12px; margin-bottom: 18px;
+    background: linear-gradient(135deg, rgba(23,195,178,0.16), rgba(11,37,69,0.08));
+    display: grid; place-items: center; font-size: 21px;
+  }
+  .service h3 { font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+  .service p { font-size: 14.5px; color: var(--muted); }
+
+  /* ---------- Frameworks ---------- */
+  .frameworks { background: var(--navy); color: #fff; }
+  .frameworks .kicker { color: var(--teal-bright); }
+  .frameworks h2 { color: #fff; }
+  .frameworks .section-head p { color: rgba(255,255,255,0.75); }
+  .fw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .fw {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius); padding: 32px 28px;
+  }
+  .fw .label {
+    font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--teal-bright); margin-bottom: 12px;
+  }
+  .fw h3 { font-size: 19px; margin-bottom: 10px; }
+  .fw p { font-size: 14.5px; color: rgba(255,255,255,0.75); }
+
+  /* ---------- CTA ---------- */
+  .cta-band {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-bright) 100%);
+    border-radius: 20px; padding: 60px 56px; color: #fff;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-band h2 { color: #fff; margin-bottom: 8px; }
+  .cta-band p { font-size: 16.5px; color: rgba(255,255,255,0.92); max-width: 560px; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 46px 0 40px; border-top: 1px solid var(--line); }
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .foot p { font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-pillars, .services-grid, .fw-grid { grid-template-columns: 1fr; }
+    .offer-card { grid-template-columns: 1fr; padding: 30px 26px; }
+    nav.links a:not(.btn) { display: none; }
+    .cta-band { flex-direction: column; align-items: flex-start; padding: 44px 32px; }
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="S3 Connected Health home">
+      <div class="logo-mark">S3</div>
+      <div class="logo-text">S3 <span>Connected Health</span></div>
+    </a>
+    <nav class="links">
+      <a href="#offerings">Offerings</a>
+      <a href="#services">How We Work</a>
+      <a href="#frameworks">Frameworks</a>
+      <a class="btn btn-primary" href="#contact">Talk to Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Connected Health Solutions for Pharma</span>
+    <h1>Grow the market. Win preference. <em>Keep patients on therapy.</em></h1>
+    <p class="lede">
+      We help pharmaceutical brand teams find where meaningful growth can be created —
+      across awareness, diagnosis, referral, access, initiation and long-term adherence —
+      and decide which changes their investment can realistically activate.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-light" href="#offerings">Explore Our Offerings</a>
+      <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,0.35);" href="#contact">Book a Strategy Session</a>
+    </div>
+
+    <div class="hero-pillars">
+      <div class="pillar">
+        <div class="num">01</div>
+        <h3>Grow the Market</h3>
+        <p>Help more eligible people reach diagnosis and the right support for their condition.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">02</div>
+        <h3>Win Rx Preference</h3>
+        <p>Deliver distinctive value around treatment when therapies look similar.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">03</div>
+        <h3>Improve Adherence &amp; Care</h3>
+        <p>Make continued use feel possible, worthwhile and supported.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OFFERINGS ======================= -->
+<section class="offerings" id="offerings">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Core Offerings</div>
+      <h2>Three ways we create value for your brand</h2>
+      <p>Each offering is grounded in a proven IP framework and shaped around the decisions your team actually faces.</p>
+    </div>
+
+    <!-- Offering 1 -->
+    <article class="offer-card">
+      <div>
+        <span class="offer-tag"><span class="dot"></span>Offering 01</span>
+        <h3>Grow the Market</h3>
+        <p class="promise">
+          Find where meaningful growth can be created across awareness, diagnosis, referral,
+          access and treatment initiation — and decide which opportunities your investment
+          can realistically activate.
+        </p>
+        <p class="belief">Growth comes from helping more eligible people reach diagnosis and get the right support for their condition.</p>
+        <ul class="scenarios">
+          <li><span class="tick">✓</span><span><strong>When the treated population needs to grow,</strong> map and prioritise opportunities across awareness, diagnosis, referral, access and activation.</span></li>
+          <li><span class="tick">✓</span><span><strong>When a new indication or market is taking shape,</strong> define the patient, clinician and system changes that future growth depends on.</span></li>
+          <li><span class="tick">✓</span><span><strong>When an unbranded or above-brand solution is planned,</strong> focus it on the few changes most likely to expand the market.</span></li>
+        </ul>
+      </div>
+      <aside class="offer-aside">
+        <div>
+          <div class="quote-mark">&ldquo;</div>
+          <blockquote>We can reach and treat more eligible patients. We need to know which changes will make that possible.</blockquote>
+        </div>
+        <div class="who">What we hear from brand teams</div>
+        <span class="framework-chip">Growth IP / Framework</span>
+      </aside>
+    </article>
+
+    <!-- Offering 2 -->
+    <article class="offer-card">
+      <div>
+        <span class="offer-tag"><span class="dot"></span>Offering 02</span>
+        <h3>Win Rx Preference</h3>
+        <p class="promise">
+          Address what actually shifts prescribing choice and switching behavior —
+          and decide which approaches to take, change or drop.
+        </p>
+        <p class="belief">When therapies look similar, delivering distinctive value around treatment is essential.</p>
+        <ul class="scenarios">
+          <li><span class="tick">✓</span><span><strong>When a differentiated offering is needed,</strong> we shape and deliver the right solution that drives clinician and patient preference.</span></li>
+          <li><span class="tick">✓</span><span><strong>When you are competing in a crowded market,</strong> we identify the specific moments where preference is won or lost — and what has to be true at each one.</span></li>
+          <li><span class="tick">✓</span><span><strong>When launch depends on a new experience,</strong> we translate real-world evidence into a focused solution, proposition, journey and direction.</span></li>
+        </ul>
+      </div>
+      <aside class="offer-aside">
+        <div>
+          <div class="quote-mark">&ldquo;</div>
+          <blockquote>We know we need to differentiate, but we&rsquo;re not sure how.</blockquote>
+        </div>
+        <div class="who">What we hear from brand teams</div>
+        <span class="framework-chip">Win IP / Framework</span>
+      </aside>
+    </article>
+
+    <!-- Offering 3 -->
+    <article class="offer-card">
+      <div>
+        <span class="offer-tag"><span class="dot"></span>Offering 03</span>
+        <h3>Improve Adherence &amp; Care</h3>
+        <p class="promise">
+          Find what patients and clinicians need to sustain therapy over time — and decide
+          which support, experience, message or workflow changes will strengthen persistence,
+          correct use and confidence.
+        </p>
+        <p class="belief">Therapy adherence grows when continued use feels possible, worthwhile and supported.</p>
+        <ul class="scenarios">
+          <li><span class="tick">✓</span><span><strong>When the optimal treatment involves more than the drug,</strong> create targeted solutions to address the real patient care needs.</span></li>
+          <li><span class="tick">✓</span><span><strong>When you need a strategy to meet adherence targets,</strong> identify the moments where expectations, routines, side effects, access and support shape continued use.</span></li>
+          <li><span class="tick">✓</span><span><strong>When you have a solution that isn&rsquo;t meeting expectations,</strong> optimize each feature, message and touchpoint for the moments that matter most.</span></li>
+        </ul>
+      </div>
+      <aside class="offer-aside">
+        <div>
+          <div class="quote-mark">&ldquo;</div>
+          <blockquote>We want to help more patients stay with therapy &mdash; we need to know what will make it possible.</blockquote>
+        </div>
+        <div class="who">What we hear from brand teams</div>
+        <span class="framework-chip">Adherence IP / Framework</span>
+      </aside>
+    </article>
+  </div>
+</section>
+
+<!-- ======================= SERVICES / HOW WE WORK ======================= -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How We Work</div>
+      <h2>From insight to activated solution</h2>
+      <p>Every engagement follows the same discipline: find where change is possible, decide what to act on, then build and optimize the solution that delivers it.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="icon">🔍</div>
+        <h3>Map &amp; Prioritise</h3>
+        <p>Map the patient, clinician and system journey to locate where growth, preference or persistence is actually won or lost — then prioritise the opportunities your investment can realistically activate.</p>
+      </div>
+      <div class="service">
+        <div class="icon">🧭</div>
+        <h3>Strategy &amp; Proposition</h3>
+        <p>Translate real-world evidence into a focused solution, proposition, journey and direction — deciding which approaches to take, change or drop.</p>
+      </div>
+      <div class="service">
+        <div class="icon">⚙️</div>
+        <h3>Solution Design &amp; Delivery</h3>
+        <p>Shape and deliver differentiated connected-health solutions — the support, experience, messages and workflows that drive clinician and patient preference.</p>
+      </div>
+      <div class="service">
+        <div class="icon">📈</div>
+        <h3>Optimization</h3>
+        <p>When a solution isn&rsquo;t meeting expectations, optimize each feature, message and touchpoint for the moments that matter most.</p>
+      </div>
+      <div class="service">
+        <div class="icon">🧪</div>
+        <h3>Evidence &amp; Frameworks</h3>
+        <p>Proprietary Growth, Win and Adherence IP frameworks bring structure, speed and confidence to decisions that usually rely on instinct.</p>
+      </div>
+      <div class="service">
+        <div class="icon">🤝</div>
+        <h3>Above-Brand Programs</h3>
+        <p>Focus unbranded and above-brand initiatives on the few patient, clinician and system changes most likely to expand the market.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FRAMEWORKS ======================= -->
+<section class="frameworks" id="frameworks">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Proprietary IP</div>
+      <h2>Frameworks built for pharma decisions</h2>
+      <p>Each offering is powered by a dedicated framework that turns complex patient and prescriber behavior into clear, prioritised action.</p>
+    </div>
+    <div class="fw-grid">
+      <div class="fw">
+        <div class="label">Growth IP / Framework</div>
+        <h3>Where can the market grow?</h3>
+        <p>Locates and prioritises growth opportunities across awareness, diagnosis, referral, access and treatment initiation — so investment lands where it can genuinely expand the treated population.</p>
+      </div>
+      <div class="fw">
+        <div class="label">Win IP / Framework</div>
+        <h3>Where is preference decided?</h3>
+        <p>Pinpoints the specific moments where prescribing choice and switching behavior are shaped, and defines what has to be true at each one to win.</p>
+      </div>
+      <div class="fw">
+        <div class="label">Adherence IP / Framework</div>
+        <h3>What sustains therapy?</h3>
+        <p>Identifies the moments where expectations, routines, side effects, access and support shape continued use — and the changes that strengthen persistence, correct use and confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CTA ======================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Where could your brand grow next?</h2>
+        <p>Bring us your growth, preference or adherence challenge. We&rsquo;ll show you where meaningful change is possible — and which opportunities your investment can realistically activate.</p>
+      </div>
+      <a class="btn btn-light" href="mailto:hello@s3connectedhealth.com">Start the Conversation</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top">
+      <div class="logo-mark">S3</div>
+      <div class="logo-text">S3 <span>Connected Health</span></div>
+    </a>
+    <p>Confidential · Copyright © All rights reserved 2009&ndash;2026 · S3 Connected Health</p>
+  </div>
+</footer>
+
+</body>
+</html>
